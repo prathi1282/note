@@ -1,0 +1,60 @@
+ELASTIC FILE SYSTEM
+========================
+NFS:NFS (Network File System) is a protocol that allows users to access and 
+manage files stored on a remote server as if they were local, enabling
+ seamless file sharing across a network, especially in Linux and Unix environments. 
+=================================================
+
+Amazon Elastic File System (EFS) is a fully managed, cloud-native file system 
+designed for Linux-based applications and workloads, providing 
+shared file storage accessible by multiple EC2 instances
+=======================================
+
+
+1.CREATE 2 LINUX EC2 SERVER MACHINES WITH SECURITY GROUP ATTACHED +  ec2-USER DATA FOR 
+CONNECTING APACHE WEB SERVER in differnt availbity zones 
+
+2.SECURITY GROUP ATTCAHED SHOULD BE ALL TRAFFIC ENABLED FOR WEB SERVERs
+
+3.CREATE NEW SECURITY GROUP FOR NFS(NETWORK FILE SYSTEM )......
+*****INBOUND RULES=====NFS ============SELECT THE SECURTY GROUP WHICH IS CREATED ===
+(WHO CAN ACCESS THE WEB SERVER)
+
+*********OUTBOUND RULES ====ALL TRAFFIC =======CUSTOM ======0.0.0.0/0
+
+4.CREATE NEW EFS (SERVICE SECTION )........
+*******NAME:MY_WEB_SERVER_EFS
+*******VPC= CLICK ON CUSTOMIZE
+******FILE SYSTEM TYPE =
+*******UNCHECK THE BOX (ENABLE AUTOMATIC BACKUP)
+******NEXT*******MOUNT TARGETS ***********REMOVE OLD SECURITY GROUPS ----ADD THE NFS 
+SECURITY GROUP FOR THE MOUNT TARGETS 
+**********NEXT*********NEXT************CREATE-----------
+
+5.CONNECT THE 2 SERVERS .......AND INSTALL ----NFS UTILS PACKAGE ON BOTH SERVERS-----
+#SUDO SU
+#yum install -y amazon-efs-utils
+
+6.IN BOTH MACHINES ----go for EFS WHICH IS CREATED,AND ATTACH, + MOUNT EFS POINT 
+IN "/var/www/html" path
+#sudo mount -t efs -o tls fs-01d1a34449cbc3c43:/ /var/www/html
+
+7.IN ANY ONE INSTANCES CREATE THE HTML FILE IN THE /VAR/WWW/HTML PATH
+#cd /var/www/html
+#vi apponix.html
+this is my first web page 
+ 
+
+8.WHEN PUBLIC IP IS CONNECTED ---------------WEB SERVER SHOULD BE AVAILBLE IN THE 2ND 
+SERVER ALSO 
+
+9. CREATE ONE MORE INSTANCES WITH ALL SAME CONFIG ==========BUT WITHOUT CONNECTION 
+----------WEB PAGE HAS TO LAUNCH -------WITH THE USER DATA DETAILS.......
+
+
+
+
+
+
+
+
