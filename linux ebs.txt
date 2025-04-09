@@ -1,0 +1,40 @@
+*********linux ec2 instance.....>EBS VOLUME********
+***********************************************************************************
+1.CREATE LINUX EC2 MACHINE ......
+2. CONNECT THE MACHINE 
+3. CREATE EBS VOLUME ....(2GB)
+4.ATTACH THIS VOLUME TO LINUX EC2 INSTANCES (MANUALLY)
+5.OPEN THE CONNECED MACHINE .....>
+#sudo su
+#lsblk
+#mkdir /vol-1============volume 
+#mkfs -t ext4 /dev/xvdb==============file s/m creted for initializing disk,creating drive
+#mount /dev/xvdb /vol-1==============ataching the volume inside the drive
+#df -Th ---------->/dev/xvdb ----->seen  
+#cd vol-1==========================moving insiude the drive volume 
+vol-1#touch test.txt=============creating the file 
+vol-1#ls
+vol-1#test.txt
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+to make offline 
+(we have to come out of the volume , before making it offline)......
+#cd
+#umount /dev/xvdb====================detaching the volume & drive
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+to take the backup of the ebs volume attcahed (on 2 -machine)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+1.create one more linux ec2 machine
+2.connect
+3.attch the ebs volume
+4.open the connected machine
+5.#sudo su
+#mkdir /vol-1
+#mount /dev/xvdb /vol-1
+#cd /vol-1
+#ls
+(back up files should be present)
+
+
+
